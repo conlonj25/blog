@@ -1,0 +1,70 @@
+---
+import ProjectPreview from "../../components/ProjectPreview.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Projects";
+const description = "Latest articles.";
+const permalink = `${Astro.site?.href}projects`;
+
+let allProjects = await Astro.glob("../../data/projects/*.md");
+allProjects = allProjects.sort(
+  (a, b) =>
+    new Date(b.frontmatter.publishDate).valueOf() -
+    new Date(a.frontmatter.publishDate).valueOf()
+);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  permalink={permalink}
+  current="projects"
+>
+  <div class="container">
+    <h1>Projects</h1>
+    {
+      allProjects.map((project, index) => {
+        return (
+          <div>
+            {index !== 0 && <hr />}
+            <div class="project-item">
+              <h2>{project.frontmatter.title}</h2>
+              <p>{project.frontmatter.description}</p>
+              <div class="project-item-footer">
+                <span class="project-item-date" />
+              </div>
+            </div>
+            <ProjectPreview
+              title={project.frontmatter.title}
+              publishDate={project.frontmatter.publishDate}
+              skills={project.frontmatter.skills}
+              description={project.frontmatter.description}
+              imageLink={project.frontmatter.imageLink}
+              codeLink={project.frontmatter.codeLink}
+              liveLink={project.frontmatter.liveLink}
+            />
+          </div>
+        );
+      })
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  h2,
+  .project-item-footer {
+    font-family: var(--font-family-sans);
+    font-weight: 700;
+  }
+
+  .project-item-date {
+    color: var(--text-secondary);
+    text-align: left;
+    text-transform: uppercase;
+    margin-right: 16px;
+  }
+
+  hr {
+    margin: 60px auto;
+  }
+</style>
