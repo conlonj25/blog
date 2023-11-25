@@ -24,63 +24,44 @@ const {
 ---
 
 <style>
+  img {
+    width: 60%;
+    border-radius: 0.5em;
+  }
+  p {
+    color: dimgrey;
+  }
   div {
     display: flex;
-    justify-content: space-around;
+    justify-content: start;
   }
 
   .buttonContainer {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
   }
 
-  img {
-    width: 250px;
-    width: 150px;
-  }
-
-  button {
+  a {
+    background-color: gainsboro;
+    padding: 1em 3em;
+    margin: 1em;
     border: none;
-    border-radius: 0.5rem;
-    color: black;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    border-radius: 0.5em;
     font-size: 16px;
-  }
-
-  .button-code {
-    background-color: #23548e;
-  }
-
-  .button-live {
-    background-color: #23548e;
-  }
-
-  p {
-    color: dimgrey;
+    text-decoration: none;
+    text-align: center;
   }
 </style>
 
 <div>
-  <img src="/assets/logo.webp" />
+  <img src={imageLink} />
   <div class="buttonContainer">
-    {
-      codeLink && (
-        <a href={codeLink}>
-          <button class="button-code">Code</button>
-        </a>
-      )
-    }
-    {
-      liveLink && (
-        <a href={liveLink}>
-          <button class="button-live">Live</button>
-        </a>
-      )
-    }
+    {codeLink && <a href={codeLink}>Code</a>}
+    {liveLink && <a href={liveLink}>Live</a>}
   </div>
 </div>
+
 <p>{skills}</p>
